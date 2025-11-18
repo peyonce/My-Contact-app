@@ -24,3 +24,5 @@ A clean and modern chat interface built with React Native and Expo for the React
 ```bash
 npm install
 npm start
+
+[Download APK from Google Drive](https://drive.google.com/drive/folders/1Of8qyZblVVKpg9ZHN24OT0L_Bg62aoIU?usp=drive_link)
