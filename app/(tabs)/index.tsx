@@ -1,98 +1,110 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import ChatItem from '../../components/ChatItem';
+import ContactAvatar from '../../components/ContactAvatar';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
-
-export default function HomeScreen() {
+function ChatScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <View style={styles.screen}>
+      {/* Chats Header Section - Centered */}
+      <View style={styles.headerSection}>
+        <Text style={styles.header}>Chats</Text>
+        
+        <View style={styles.contactsContainer}>
+          <ContactAvatar name="Mira" />
+          <ContactAvatar name="Phill" />
+          <ContactAvatar name="Mike" />
+          <ContactAvatar name="Kierra" />
+        </View>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      {/* Recent Chat Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionHeader}>Recent Chat</Text>
+
+        <ChatItem 
+          name="Phillip Geidt"
+          time="1:34"
+          message="Phillip is typing..."
+          typing={true}
+        />
+
+        <ChatItem 
+          name="Kierra from Match"
+          time="1:05"
+          message="Voice message"
+          voice={true}
+        />
+
+        <ChatItem 
+          name="Mike Smith"
+          time="10:31"
+          message="Yes, put my name down..."
+        />
+
+        <ChatItem 
+          name="Stacey Neighbor" 
+          time="08:12"
+          message="Hill Her mom already used it"
+        />
+      </View>
+
+      {/* Group Chat Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionHeader}>Group Chat</Text>
+
+        <ChatItem 
+          name="Kevin's BP"
+          time="12:32" 
+          message="Kate and Ann are typing..."
+          typing={true}
+        />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  screen: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    padding: 10,
+    paddingTop: 35,
+  },
+  headerSection: {
+    backgroundColor: '#F2F2F7',
+    borderRadius: 20,
+    padding: 14,
+    marginBottom: 10,
+    alignItems: 'center', // Center the content
+  },
+  header: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#000000',
+    marginBottom: 10,
+    textAlign: 'center', // Center the text
+  },
+  contactsContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    gap: 8,
+    width: '100%', // Take full width
   },
-  stepContainer: {
-    gap: 8,
+  section: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 10,
     marginBottom: 8,
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  sectionHeader: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#000000',
+    marginBottom: 6,
   },
 });
+
+export default ChatScreen;
